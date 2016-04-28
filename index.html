@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Refugee Visualization</title>
+	
+	<script src="https://code.jquery.com/jquery.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+
+	<link rel="stylesheet" href="css/index.css">
+	<script src="js/index.js"></script>
+
+</head>
+<body class ="container">
+	<h1>Refugee Data</h1>
+	<div class="btn-group" data-toggle="buttons">
+		  <label class="btn btn-primary active">
+		    <input value="total" type="radio" class="measure" name="options" id="option1" autocomplete="off" checked>Total Refugees
+		  </label>
+		  <label class="btn btn-primary">
+		    <input value="gdp" type="radio" class="measure" name="options" id="option2" autocomplete="off">by GDP
+		  </label>
+		  <label class="btn btn-primary">
+		    <input value="population" type="radio" class="measure" name="options" id="option3" autocomplete="off">by Population
+		  </label>
+		</div>
+
+		<div class="btn-group" data-toggle="buttons">
+		  <label class="btn btn-primary">
+		    <input value = "2015" type="radio" name="options" id="option1" autocomplete="off">2015
+		  </label>
+		  <label class="btn btn-primary active">
+		    <input value = "average" type="radio" name="options" id="option2" autocomplete="off" checked>5 Year Average
+		  </label>
+		</div>
+		<div class="btn-group">
+			<input type="range" id="refugeeRange" min="0" max="100">	
+		</div>
+</body>
+</html>
