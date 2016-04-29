@@ -2,16 +2,16 @@ Country,GDP Per Capita
 "Qatar",103900
 "Liechtenstein",89400
 "Bermuda",86000
-"Macau",82400
+"Macao SAR, China",82400
 "Luxembourg",81100
 "Monaco",70700
 "Singapore",61400
 "Jersey",57000
 "Norway",55900
 "Falkland Islands (Islas Malvinas)",55400
-"Brunei",55300
+"Brunei Darussalami",55300
 "Isle of Man",53800
-"Hong Kong",52300
+"Hong Kong SAR, China",52300
 "United States",50700
 "United Arab Emirates",49800
 "Switzerland",46200
@@ -23,7 +23,6 @@ Country,GDP Per Capita
 "Gibraltar",43000
 "Netherlands",42900
 "Ireland",42600
-"British Virgin Islands",42300
 "Sweden",41900
 "Kuwait",40500
 "Iceland",39900
@@ -40,9 +39,9 @@ Country,GDP Per Capita
 "San Marino",36200
 "France",36100
 "European Union",35100
-"Saint Pierre and Miquelon",34900
+"St. Pierre and Miquelon",34900
 "Israel",32800
-"Korea, South",32800
+"Korea, Rep.",32800
 "Bahamas, The",31900
 "Saudi Arabia",31800
 "Spain",31100
@@ -62,7 +61,7 @@ Country,GDP Per Capita
 "Seychelles",25600
 "Aruba",25300
 "Greece",24900
-"Slovakia",24600
+"Slovak Republic",24600
 "Portugal",23800
 "Estonia",22100
 "French Polynesia",22000
@@ -75,11 +74,11 @@ Country,GDP Per Capita
 "Argentina",18400
 "Antigua and Barbuda",18300
 "Croatia",18100
-"Russia",18000
+"Russian Federation",18000
 "Malaysia",17200
 "Botswana",17100
 "Gabon",16800
-"Saint Kitts and Nevis",16500
+"St. Kitts and Nevis",16500
 "Puerto Rico",16300
 "Uruguay",16200
 "Lebanon",16000
@@ -87,30 +86,30 @@ Country,GDP Per Capita
 "Belarus",15900
 "Mauritius",15800
 "Mexico",15600
-"Sint Maarten",15400
+"Sint Maarten (Dutch part)",15400
 "Turkey",15200
-"Curacao",15000
+"Curaçao",15000
 "Bulgaria",14500
-"Virgin Islands",14500
+"Virgin Islands (U.S.)",14500
 "Dominica",14400
 "Kazakhstan",14100
 "Grenada",13900
-"Venezuela",13800
+"Venezuela, RB",13800
 "Northern Mariana Islands",13600
-"Iran",13300
-"Saint Lucia",13300
+"Iran, Islamic Rep.",13300
+"St. Lucia",13300
 "Romania",13000
 "Costa Rica",12800
 "Suriname",12600
 "Libya",12300
 "Anguilla",12200
 "Brazil",12100
-"Saint Vincent and the Grenadines",12000
+"St. Vincent and the Grenadines",12000
 "Montenegro",12000
 "South Africa",11600
 "Colombia",11000
 "Peru",10900
-"Macedonia",10800
+"Macedonia, FYR",10800
 "Azerbaijan",10700
 "Serbia",10600
 "Palau",10500
@@ -123,25 +122,23 @@ Country,GDP Per Capita
 "Maldives",9400
 "China",9300
 "Jamaica",9300
-"Cook Islands",9100
 "Belize",8900
 "Turkmenistan",8900
 "Marshall Islands",8800
-"Montserrat",8500
 "Bosnia and Herzegovina",8400
 "Albania",8200
 "Guyana",8100
 "American Samoa",8000
 "Namibia",7900
-"Saint Helena, Ascension, and Tristan da Cunha",7800
+"St. Helena, Ascension, and Tristan da Cunha",7800
 "Tonga",7700
 "El Salvador",7600
 "Algeria",7600
 "Ukraine",7500
-"Micronesia, Federated States of",7500
+"Micronesia, Fed. Sts.",7500
 "Iraq",7200
 "Bhutan",6800
-"Egypt",6700
+"Egypt, Arab Rep.",6700
 "Angola",6500
 "Samoa",6300
 "Paraguay",6200
@@ -157,15 +154,15 @@ Country,GDP Per Capita
 "Guatemala",5300
 "Bolivia",5200
 "Indonesia",5100
-"Syria",5100
+"Syrian Arab Republic",5100
 "Nauru",5000
 "Vanuatu",5000
 "Fiji",4900
 "Honduras",4700
-"Congo, Republic of the",4700
+"Congo, Rep.",4700
 "Philippines",4500
 "Nicaragua",4500
-"Cape Verde",4200
+"Cabo Verde",4200
 "India",3900
 "Wallis and Futuna",3800
 "Vietnam",3600
@@ -174,19 +171,19 @@ Country,GDP Per Capita
 "Ghana",3400
 "Tuvalu",3400
 "Solomon Islands",3400
-"Laos",3100
+"Lao PDR",3100
 "Pakistan",2900
-"West Bank",2900
+"West Bank and Gaza",2900
 "Papua New Guinea",2800
 "Nigeria",2800
 "Djibouti",2700
 "Sudan",2600
 "Western Sahara",2500
 "Cambodia",2400
-"Kyrgyzstan",2400
-"Sao Tome and Principe",2400
+"Kyrgyz Republic",2400
+"São Tomé and Principe",2400
 "Cameroon",2400
-"Yemen",2300
+"Yemen, Rep.",2300
 "Tajikistan",2300
 "Mauritania",2200
 "Lesotho",2200
@@ -194,8 +191,8 @@ Country,GDP Per Capita
 "Bangladesh",2100
 "Chad",2000
 "Gambia, The",1900
-"Cote d'Ivoire",1800
-"Korea, North",1800
+"Côte d'Ivoire",1800
+"Korea, Dem. Rep.",1800
 "Kenya",1800
 "Zambia",1700
 "Benin",1700
@@ -226,5 +223,5 @@ Country,GDP Per Capita
 "Burundi",600
 "Zimbabwe",600
 "Somalia",600
-"Congo, Democratic Republic of the",400
+"Congo, Dem. Rep.",400
 "Kosovo",0

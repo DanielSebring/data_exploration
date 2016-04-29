@@ -3,13 +3,14 @@ $(function() {
 	var xScale, yScale;
 	var countryObjects = [];
 	var countryMap = new Object();
+	var falseCodes = [];
 	/*DATA PROCESSING STEPS*/
 	
 	
 	d3.csv('data/refugees/refugee_amounts.csv', function (error, allData) {
 		
 		// from here we want the last 5 years of refugee data and the names of the countries
-		var falseCodes = ["ARB" , "CSS" , "EAP" , "EAS" , "ECA" , "ECS" , "EUU" , "FCS" , "HPC"
+		falseCodes = ["ARB" , "CSS" , "EAP" , "EAS" , "ECA" , "ECS" , "EUU" , "FCS" , "HPC"
 			, "HIC" , "INX" , "LCN" , "LAC" , "LDC" , "LIC" , "LMY" , "MEA" , "MIC" , "NOC" , "OED" , "OSS" , "PSS" , "SSA" , "SSF" , "SST" , "UMC" , "WLD", "MNA", "LMC"];
 		
 			
@@ -17,7 +18,7 @@ $(function() {
 			if ((allData[i].hasOwnProperty("Country Code")) && (allData[i]["Country Code"].length == 3) && (!isInArray(allData[i]["Country Code"], falseCodes))) {
 				//console.log(allData[i]["Country Name"]);
 				//console.log(allData[i]["Country Code"]);
-				countryMap[allData[i]["Country Code"]] = i;
+				countryMap[allData[i]["Country Name"]] = i;
 				
 				var countryObj = {
 					"name": allData[i]["Country Name"],
@@ -44,36 +45,54 @@ $(function() {
 					"2013": allData[i]["2013"],
 					"2014": allData[i]["2014"]				
 				}
-			//console.log("just finished " + countryObj.name);
-			countryObjects.push(countryObj);
+			console.log("just finished " + countryObj.name + " and they will be at position " + i + " you go " + countryObj.code);
+			countryObjects[i] = countryObj;
+			//countryObjects.push(countryObj);
 			}
 			
 		}
 		console.log(countryMap);
+		console.log(countryObjects);
 	});
 	
 	d3.csv('data/refugees/population_data.csv', function (error, allData) {
 		for(var i = 0; i < allData.length; i++) {
-			if ((allData[i].hasOwnProperty("Country Code")) && (allData[i]["Country Code"].length == 3)) {
-				var arrayLocation = get(countryMap, allData[i]["Country Code"]);
-				countryObjects[arrayLocation]["population"] = allData[i]["2014"];
+
+			if ((allData[i].hasOwnProperty("Country Code")) && (allData[i]["Country Code"].length == 3) && (!isInArray(allData[i]["Country Code"], falseCodes))) {
+				var arrayLocation = get(countryMap, allData[i]["Country Name"]);
+				countryObjects[arrayLocation]["pop"] = allData[i]["2014"];
 			}
-			console.log(allData[i]);
-		}
 		
-		// from here we want the population of each country and then merge that with the earlier countries
-		//console.log("populations: ", allData);
+		}
+
 	});
 	
 	d3.csv('data/refugees/country_regions.csv', function (error, allData) {
 		// here we need to assign the regions to the countries from earlier
-		//console.log("regions: " , allData);
+		for(var i = 0; i < allData.length; i++) {
+			//console.log((allData[i].hasOwnProperty("Country Code")) && (allData[i]["Country Code"].length == 3) && (!isInArray(allData[i]["Country Code"], falseCodes)))
+			if ((allData[i].hasOwnProperty("Country Code")) && (allData[i]["Country Code"].length == 3) && (!isInArray(allData[i]["Country Code"], falseCodes))) {
+				var arrayLocation = get(countryMap, allData[i]["Country Name"]);
+				//console.log("attempting to put " + allData[i]["Country Name"] + " (" + allData[i]["Country Code"] + ") " + " into array location " + arrayLocation)
+				//console.log(countryObjects[arrayLocation]);
+				countryObjects[arrayLocation]["region"] = allData[i]["Region"];
+			}
+		
+		}
+		console.log(countryObjects);
 	});
 	
 	d3.csv('data/worldFactbook/gdp-capita.csv', function(error, allData) {
-		//console.log("gdp per capita: " , allData);
+		for(var i = 0; i < allData.length; i++) {
+			if (allData[i]["Country"] in countryMap) {
+				var arrayLocation = get(countryMap, allData[i]["Country"]);
+				countryObjects[arrayLocation]["gdp"] = allData[i]["GDP Per Capita"];
+			} else {
+				console.log("Failed on: " + allData[i]["Country"])
+			}
+		}
 	});
-	
+	console.log(countryObjects);
 	/***** END DATA PROCESSING *******/
 	
 	
