@@ -8,32 +8,46 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
-
 	<link rel="stylesheet" href="css/index.css">
 	<script src="js/index.js"></script>
+
 
 </head>
 <body class ="container">
 	<h1>Refugee Data</h1>
-	<div class="btn-group" data-toggle="buttons">
+	<div class="btn-group" data-toggle="buttons" id="buttons_measure">
 		  <label class="btn btn-primary active">
-		    <input value="total" type="radio" class="measure" name="options" id="option1" autocomplete="off" checked>Total Refugees
+		    <input value="total" type="radio" class="measure" name="options" id="button_total" autocomplete="off" checked>Total Refugees
 		  </label>
 		  <label class="btn btn-primary">
-		    <input value="gdp" type="radio" class="measure" name="options" id="option2" autocomplete="off">by GDP
+		    <input value="gdp" type="radio" class="measure" name="options" id="button_gdp" autocomplete="off">by GDP
 		  </label>
 		  <label class="btn btn-primary">
-		    <input value="population" type="radio" class="measure" name="options" id="option3" autocomplete="off">by Population
+		    <input value="population" type="radio" class="measure" name="options" id="button_pop" autocomplete="off">by Population
+		  </label>
+	</div>
+		<br><br>
+		<div class="btn-group" data-toggle="buttons" style="display:inline-block" id="buttons_average">
+		  <label class="btn btn-primary active">
+		    <input value = "2013" type="radio" name="options_average" id="button_2013" autocomplete="off">2013
+		  </label>
+		  <label class="btn btn-primary">
+		    <input value = "average" type="radio" name="options_average" id="button_average" autocomplete="off">5 Year Average
 		  </label>
 		</div>
+		  <br><br>
+		  
+		  <input style="width:300px" id="slider1" type="range" min="10" max="50" value="25" name="years" onchange="showValue(this.value)"/>
+		  <span id="range">25</span>
 
-		<div class="btn-group" data-toggle="buttons">
-		  <label class="btn btn-primary">
-		    <input value = "2015" type="radio" name="options" id="option1" autocomplete="off">2015
-		  </label>
-		  <label class="btn btn-primary active">
-		    <input value = "average" type="radio" name="options" id="option2" autocomplete="off" checked>5 Year Average
-		  </label>
-		</div>
+			<script type="text/javascript">
+			function showValue(newValue)
+				{
+					document.getElementById("range").innerHTML=newValue;
+				}
+			</script>
+		<h2>Some Graph</h2>
+		<div id="vis"></div>
+		
 </body>
 </html>
