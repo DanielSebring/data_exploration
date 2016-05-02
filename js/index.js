@@ -158,7 +158,6 @@ $(function() {
 
 
         var setScales = function(data) {
-            console.log(data);
             // for scales: 
             // input domain: the range of possible input data values (if you have 100, 200, 300, 400, and 500, 100 to 500 would be the domain)
             // output range: the range of possible output values (often display values in pixels)
@@ -173,27 +172,27 @@ $(function() {
             
             if (measure == "total") {
                 yMax = d3.max(data, function(d) { return (+betterParseInt(d[average]) / 1.0)})
-                console.log("yMax " + yMax);
+                console.log("in total yMax " + yMax);
                 yMin = d3.min(data, function(d) { return (+betterParseInt(d[average]) / 1.0)})//data[document.getElementById("slider1").value][measure];
             } else if (measure == "gdp") {
                 yMax = d3.max(data, function(d) { return (+betterParseInt(d[average]) / betterParseInt(d["gdp"]))})
-                console.log("yMax " + yMax);
+                console.log("in total yMax " + yMax);
                 yMin = d3.min(data, function(d) { return (+betterParseInt(d[average]) / betterParseInt(d["gdp"]))})  //(data[document.getElementById("slider1").value][measure] / data[0]["gdp"]);
             } else {
                 yMax = d3.max(data, function(d) { return (+betterParseInt(d[average]) / betterParseInt(d["pop"]))})
-                console.log("yMax " + yMax)
+                console.log("in total yMax " + yMax)
                 yMin = d3.min(data, function(d) { return (+betterParseInt(d[average]) / betterParseInt(d["pop"]))}) //yMax = (data[0][measure] / data[0]["pop"]);
             }
             // TODO info about xscale
             xScale = d3.scale.ordinal().rangeBands([0, width], .2).domain(countries);
             // TODO info about yscale
+            console.log("about to print yMax " + yMax);
+            
             yScale = d3.scale.linear().range([height, 0]).domain([0, yMax]);
-            console.log("213123123213 height " + height)
         }
 
 
         var setAxes = function() {
-            console.log("setting axes");
             var xAxis = d3.svg.axis()
                 .scale(xScale)
                 .orient('bottom')
@@ -222,32 +221,24 @@ $(function() {
         }
 
         var filterData = function() {
-            console.log("filtering dat data"); 
             currentCountries = countryObjects
             .sort(function(a, b) {
                 if (measure == 'total') {
                     //things
+                    console.log("gdp things " , ((betterParseInt(b[average]) / betterParseInt(b["gdp"])) - ((betterParseInt(a[average]) / betterParseInt(a["gdp"])))));
 
                     return (betterParseInt(b[average]) - betterParseInt(convertToInt(a[average])))
                 } if (measure == 'gdp') {
                     //gdp things
+                    console.log("gdp things " , ((betterParseInt(b[average]) / betterParseInt(b["gdp"])) - ((betterParseInt(a[average]) / betterParseInt(a["gdp"])))));
                     return ((betterParseInt(b[average]) / betterParseInt(b["gdp"])) - ((betterParseInt(a[average]) / betterParseInt(a["gdp"]))))
                 } else {
                     //pop things
+                    console.log("population things " , (betterParseInt(b[average]) / betterParseInt(b["pop"])) - ((betterParseInt(a[average]) / betterParseInt(a["pop"]))));
                     return ((betterParseInt(b[average]) / betterParseInt(b["pop"])) - ((betterParseInt(a[average]) / betterParseInt(a["pop"]))))
-                }
-              
-                //if (average == "2013") {
-                 //   console.log("only 2013!");
-                   
-                //} else {
-                 //   console.log("5 year data");
-                  //  return parseInt(convertToInt(b["average"])) - parseInt(convertToInt(a["average"]))
-               // }
-              
+                }              
             })
             currentCountries = currentCountries.slice(0, (parseInt(document.getElementById("slider1").value) + 1));
-            console.log("sliced countries " , currentCountries);
             
         }
         
@@ -256,12 +247,10 @@ $(function() {
         var color = d3.scale.category10();
 
         var draw = function(data) {
-            console.log("drawing dat data")
             setScales(data);
 
             setAxes();
             
-            console.log("inDraw data!!!" , data); 
             var bars = g.selectAll('rect').data(data);
             
             bars.enter().append('rect')
@@ -288,7 +277,6 @@ $(function() {
                     return xScale(d.code)
                 })
                 .attr('y', function(d) {
-                    console.log("yScale:" , yScale);
                     return yScale(d[average])
                 })
                 .attr('height', function(d) {
@@ -304,12 +292,9 @@ $(function() {
             
             measure = $("input:radio[name='options']:checked").val();
             average = $("input:radio[name='options_average']:checked").val();         
-            console.log("clicked");
             filterData();
             draw(currentCountries);
         });
-
-
 
         $("rect").tooltip({
             'container': 'body',
@@ -322,7 +307,6 @@ $(function() {
         return array.indexOf(value) > -1;
     }
 
-
     function convertToInt(stringNum) {
         if (stringNum == "") {
             return 0
@@ -330,6 +314,7 @@ $(function() {
             return stringNum;
         }
     }
+    
     function isRealCountry(allData, index) {
         return (allData[index].hasOwnProperty("Country Code")) && (allData[index]["Country Code"].length == 3) && (!isInArray(allData[index]["Country Code"], falseCodes));
     }
@@ -353,8 +338,5 @@ $(function() {
             return parseInt(stringNum);
         }
     }
-
-
-  
 });
 /***** END DATA PROCESSING *******/
