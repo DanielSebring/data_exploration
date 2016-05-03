@@ -225,12 +225,17 @@ $(function() {
             .sort(function(a, b) {
                 if (measure == 'total') {
                     //things
-                    console.log("gdp things " , ((betterParseInt(b[average]) / betterParseInt(b["gdp"])) - ((betterParseInt(a[average]) / betterParseInt(a["gdp"])))));
+                    //console.log("gdp things " , ((betterParseInt(b[average]) / betterParseInt(b["gdp"])) - ((betterParseInt(a[average]) / betterParseInt(a["gdp"])))));
 
                     return (betterParseInt(b[average]) - betterParseInt(convertToInt(a[average])))
                 } if (measure == 'gdp') {
                     //gdp things
-                    console.log("gdp things " , ((betterParseInt(b[average]) / betterParseInt(b["gdp"])) - ((betterParseInt(a[average]) / betterParseInt(a["gdp"])))));
+                    console.log("gdp things a num " + a[average])
+                    console.log("gdp things b num " + b[average])
+                    console.log("gdp things a gdp " + a["gdp"])
+                    console.log("gdp things b gdp " + b["gdp"])
+                    console.log("average " + average)
+                    console.log("result of test " + ((betterParseInt(b[average]) / betterParseInt(b["gdp"])) - ((betterParseInt(a[average]) / betterParseInt(a["gdp"])))))
                     return ((betterParseInt(b[average]) / betterParseInt(b["gdp"])) - ((betterParseInt(a[average]) / betterParseInt(a["gdp"]))))
                 } else {
                     //pop things
@@ -277,10 +282,32 @@ $(function() {
                     return xScale(d.code)
                 })
                 .attr('y', function(d) {
-                    return yScale(d[average])
+                    if (measure == "total") {
+                        console.log("y " + yScale(betterParseInt(d[average])));
+                        return yScale(betterParseInt(d[average]));
+                    } else if (measure == "gdp") {
+                        console.log("y " + yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"])));
+                        return yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"]));
+                    } else {
+                        console.log("y " + yScale((betterParseInt(d[average]) / betterParseInt(d["pop"])) - (betterParseInt(d[average]) / betterParseInt(d["pop"]))));
+                        return yScale(d[average] / d["pop"])
+                    }
                 })
                 .attr('height', function(d) {
-                    return height - yScale(d[average])
+                    if (measure == "total") {
+                        console.log("height + total " + (height - yScale(betterParseInt(d[average]))));
+                        return height - yScale(betterParseInt(d[average]));
+                    } else if (measure == "gdp") {
+                        //gdp
+                        console.log("height + gdp " + (height - yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"]))))
+                        return height - yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"]));
+                    } else {
+                        //pop
+                        console.log(yScale(d[average] / d["pop"]))
+                        console.log("height _ pop " + (height - (yScale(d[average] / d["pop"]))))
+                        return height - yScale(d[average] / d["pop"]);
+                    }
+                    //return height - yScale(d[average])
                 })
                 .attr('width', xScale.rangeBand())
                 .attr('title', function(d) {
@@ -289,7 +316,8 @@ $(function() {
         }
 
         $("input").on('change', function() {
-            
+            alert("MEASURE " + $("input:radio[name='options']:checked").val());
+            alert("AVERAGE " + $("input:radio[name='options_average']:checked").val());
             measure = $("input:radio[name='options']:checked").val();
             average = $("input:radio[name='options_average']:checked").val();         
             filterData();
