@@ -61,7 +61,7 @@ $(function() {
         .attr('class', 'title');
         
         // this is totally arbitrary to the set of data I'm using.  It incudes 
-    falseCodes = ["EMU", "NAC", "ARB", "CSS", "EAP", "EAS", "ECA", "ECS", "EUU", "FCS", "HPC", "HIC", "INX", "LCN", "LAC", "LDC", "LIC", "LMY", "MEA", "MIC", "NOC", "OEC", "OED", "OSS", "PSS", "SAS", "SSA", "SSF", "SST", "UMC", "WLD", "MNA", "LMC"];
+    falseCodes = ["EMU", "NAC", "ARB", "CSS", "EAP", "EAS", "ECA", "ECS", "EUU", "FCS", "HPC", "HIC", "INX", "LCN", "LAC", "LDC", "LIC", "LMY", "MEA", "MIC", "NOC", "OEC", "OED", "OSS", "PSS", "SAS", "SSA", "SSF", "SST", "UMC", "WLD", "MNA", "LMC", "TWN"];
 
 
     /*************************************DATA PROCESSING STEPS*************************************/
@@ -230,20 +230,20 @@ $(function() {
                     return (betterParseInt(b[average]) - betterParseInt(convertToInt(a[average])))
                 } if (measure == 'gdp') {
                     //gdp things
-                    console.log("gdp things a num " + a[average])
-                    console.log("gdp things b num " + b[average])
-                    console.log("gdp things a gdp " + a["gdp"])
-                    console.log("gdp things b gdp " + b["gdp"])
-                    console.log("average " + average)
+                    console.log("countray A name " + a["name"] + " and a[average] " + a[average] + " a[gdp] " + a["gdp"]);
+                    console.log("countray B name " + b["name"] + " and b[average] " + b[average] + " b[gdp] " + b["gdp"]);
                     console.log("result of test " + ((betterParseInt(b[average]) / betterParseInt(b["gdp"])) - ((betterParseInt(a[average]) / betterParseInt(a["gdp"])))))
                     return ((betterParseInt(b[average]) / betterParseInt(b["gdp"])) - ((betterParseInt(a[average]) / betterParseInt(a["gdp"]))))
                 } else {
                     //pop things
                     console.log("population things " , (betterParseInt(b[average]) / betterParseInt(b["pop"])) - ((betterParseInt(a[average]) / betterParseInt(a["pop"]))));
+                    
+                    //could be here
                     return ((betterParseInt(b[average]) / betterParseInt(b["pop"])) - ((betterParseInt(a[average]) / betterParseInt(a["pop"]))))
                 }              
             })
-            currentCountries = currentCountries.slice(0, (parseInt(document.getElementById("slider1").value) + 1));
+            //currentCountries = currentCountries;
+            currentCountries = currentCountries.slice(0, (parseInt(document.getElementById("slider1").value)));
             
         }
         
@@ -256,7 +256,7 @@ $(function() {
 
             setAxes();
             
-            var bars = g.selectAll('rect').data(data);
+            var bars = g.selectAll('rect').data(data.slice(0, (parseInt(document.getElementById("slider1").value))));
             
             bars.enter().append('rect')
                 .attr('x', function(d) {
@@ -283,28 +283,41 @@ $(function() {
                 })
                 .attr('y', function(d) {
                     if (measure == "total") {
-                        console.log("y " + yScale(betterParseInt(d[average])));
+                        console.log("average " + average);
+                        console.log("d[average] " + d[average]);
+                        console.log("attempting to log " + yScale(betterParseInt(d[average])));
                         return yScale(betterParseInt(d[average]));
                     } else if (measure == "gdp") {
-                        console.log("y " + yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"])));
+                        console.log("average " + average);
+                        console.log("d[average] " + d[average]);
+                        console.log("attepting to log " + yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"])));
                         return yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"]));
                     } else {
-                        console.log("y " + yScale((betterParseInt(d[average]) / betterParseInt(d["pop"])) - (betterParseInt(d[average]) / betterParseInt(d["pop"]))));
+                        // here
+                        console.log("average " + average);
+                        console.log("d[average] " + d[average]);
+                        console.log("attepting to log " + (yScale(d[average] / d["pop"])));
                         return yScale(d[average] / d["pop"])
                     }
                 })
                 .attr('height', function(d) {
                     if (measure == "total") {
-                        console.log("height + total " + (height - yScale(betterParseInt(d[average]))));
+                        console.log("average " + average);
+                        console.log("d[average] " + d[average]);
+                        console.log("attepting to log " + (height - yScale(betterParseInt(d[average]))));
                         return height - yScale(betterParseInt(d[average]));
                     } else if (measure == "gdp") {
                         //gdp
-                        console.log("height + gdp " + (height - yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"]))))
+                        console.log("average " + average);
+                        console.log("d[average] " + d[average]);
+                        console.log("attempting to log " + (height - yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"]))));
                         return height - yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"]));
                     } else {
                         //pop
-                        console.log(yScale(d[average] / d["pop"]))
-                        console.log("height _ pop " + (height - (yScale(d[average] / d["pop"]))))
+                        // here
+                        console.log("average " + average);
+                        console.log("d[average] " + d[average]);
+                        console.log("attempting to log " + (height - yScale(d[average] / d["pop"])));
                         return height - yScale(d[average] / d["pop"]);
                     }
                     //return height - yScale(d[average])
