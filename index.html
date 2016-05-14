@@ -14,40 +14,47 @@
 
 </head>
 <body class ="container">
-	<h1>Refugee Data</h1>
-	<div class="btn-group" data-toggle="buttons" id="buttons_measure">
-		  <label class="btn btn-primary active">
-		    <input value="total" type="radio" class="measure" name="options" id="button_total" autocomplete="off" checked>Total Refugees
-		  </label>
-		  <label class="btn btn-primary">
-		    <input value="gdp" type="radio" class="measure" name="options" id="button_gdp" autocomplete="off">by GDP
-		  </label>
-		  <label class="btn btn-primary">
-		    <input value="population" type="radio" class="measure" name="options" id="button_pop" autocomplete="off">by Population
-		  </label>
-	</div>
-		<br><br>
-		<div class="btn-group" data-toggle="buttons" style="display:inline-block" id="buttons_average">
-		  <label class="btn btn-primary active">
-		    <input value = "2013" type="radio" name="options_average" id="button_2013" autocomplete="off" checked>2013
-		  </label>
-		  <label class="btn btn-primary">
-		    <input value = "average" type="radio" name="options_average" id="button_average" autocomplete="off">5 Year Average
-		  </label>
+	<div class = "center">
+
+		<h1>Refugee Data</h1>
+		<div class="btn-group" data-toggle="buttons" id="buttons_measure">
+				<label class="btn btn-primary active">
+					<input value="total" type="radio" class="measure" name="options" id="button_total" autocomplete="off" checked>Total Refugees
+				</label>
+				<label class="btn btn-primary">
+					<input value="gdp" type="radio" class="measure" name="options" id="button_gdp" autocomplete="off">by GDP
+				</label>
+				<label class="btn btn-primary">
+					<input value="population" type="radio" class="measure" name="options" id="button_pop" autocomplete="off">by Population
+				</label>
 		</div>
-		  <br><br>
-		  
-		  <input style="width:300px" id="slider1" type="range" min="10" max="50" value="25" name="years" onchange="showValue(this.value)"/>
-		  <span id="range">25</span>
+			<br><br>
+			<div class="btn-group" data-toggle="buttons" style="display:inline-block" id="buttons_average">
+				<label class="btn btn-primary active">
+					<input value = "2013" type="radio" name="options_average" id="button_2013" autocomplete="off" checked>2013
+				</label>
+				<label class="btn btn-primary">
+					<input value = "average" type="radio" name="options_average" id="button_average" autocomplete="off">5 Year Average
+				</label>
+			</div>
+				<br><br>
+				<h4>Pick the Amount of Countries to Display<h4>
+				<div class = "center">
+				<input style="width:300px" id="slider1" type="range" min="10" max="50" value="25" name="years" oninput="showValue(this.value)"/>
+				</div>
+				<span id="range">25 countries</span>
+		</div>
 
 			<script type="text/javascript">
 			function showValue(newValue)
 				{
-					document.getElementById("range").innerHTML=newValue;
+					document.getElementById("range").innerHTML=newValue + " countries";
 				}
 			</script>
 		<h2>Some Graph</h2>
+		<div class="center">
 		<div id="vis"></div>
+		</div>
 		
 </body>
 </html>

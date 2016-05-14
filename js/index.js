@@ -17,7 +17,7 @@ $(function() {
 
     // margins for setting up the D3 svg
     var margin = {
-        left: 70,
+        left: 75,
         bottom: 100,
         top: 50,
         right: 50
@@ -57,7 +57,7 @@ $(function() {
         
         // this will be the label that descrbes the y Axis (Total/GDP/or refugees per capita)
     var yAxisText = svg.append('text')
-        .attr('transform', 'translate(' + (margin.left - 40) + ',' + (margin.top + height / 2) + ') rotate(-90)')
+        .attr('transform', 'translate(' + (margin.left - 55) + ',' + (margin.top + (height / 1.25)) + ') rotate(-90)')
         .attr('class', 'title');
         
         // this is totally arbitrary to the set of data I'm using.  It incudes 
@@ -132,19 +132,26 @@ $(function() {
         
         // this uses a similar format to parse 
         d3.csv('data/refugees/country_regions.csv', function(error, allData) {
+            console.log(countryObjects);
             for (var i = 0; i < allData.length; i++) {
                 if (isRealCountry(allData, i)) {
+                    
                     var arrayLocation = getJSONIndexByName(countryObjects, allData[i]["Country Name"]);
                     countryObjects[arrayLocation]["region"] = allData[i]["Region"];
                 }
             }
+            console.log(countryObjects);
         });
 
-        d3.csv('data/worldFactbook/gdp-capita.csv', function(error, allData) {
+        d3.csv('data/worldFactbook/gdp.csv', function(error, allData) {
+            console.log(allData);
             for (var i = 0; i < allData.length; i++) {
-                if (get(countryMap, allData[i]["Country"])) {
-                    var arrayLocation = getJSONIndexByName(countryObjects, allData[i]["Country"]);
-                    countryObjects[arrayLocation]["gdp"] = allData[i]["GDP Per Capita"];
+                if (get(countryMap, allData[i]["Country Name"]) && allData[i]["Year"] == 2014) {
+                    console.log(countryObjects);
+                    console.log(allData[i]["Country Name"]);
+                    var arrayLocation = getJSONIndexByName(countryObjects, allData[i]["Country Name"]);
+                    console.log(arrayLocation);
+                    countryObjects[arrayLocation]["gdp"] = allData[i]["Value"];
                 } 
             }
             filterData();
@@ -171,15 +178,17 @@ $(function() {
 
             
             if (measure == "total") {
-                yMax = d3.max(data, function(d) { return (+betterParseInt(d[average]) / 1.0)})
+                
+                yMax = d3.max(data, function(d) {console.log("yMax is " + betterParseInt(d[average]) / 1.0); return (+betterParseInt(d[average]) / 1.0)})
+                
                 console.log("in total yMax " + yMax);
                 yMin = d3.min(data, function(d) { return (+betterParseInt(d[average]) / 1.0)})//data[document.getElementById("slider1").value][measure];
             } else if (measure == "gdp") {
-                yMax = d3.max(data, function(d) { return (+betterParseInt(d[average]) / betterParseInt(d["gdp"]))})
+                yMax = d3.max(data, function(d) {console.log("yMax is " + betterParseInt(d["gdp"])) / betterParseInt(d[average]);return (+betterParseInt(d[average]) / betterParseInt(d["gdp"]))})
                 console.log("in total yMax " + yMax);
-                yMin = d3.min(data, function(d) { return (+betterParseInt(d[average]) / betterParseInt(d["gdp"]))})  //(data[document.getElementById("slider1").value][measure] / data[0]["gdp"]);
+                yMin = d3.min(data, function(d) { return (+betterParseInt(d["gdp"]) / betterParseInt(d[average]))})  //(data[document.getElementById("slider1").value][measure] / data[0]["gdp"]);
             } else {
-                yMax = d3.max(data, function(d) { return (+betterParseInt(d[average]) / betterParseInt(d["pop"]))})
+                yMax = d3.max(data, function(d) {console.log("yMax is " + betterParseInt(d[average]) / betterParseInt(d["pop"])); return (+betterParseInt(d[average]) / betterParseInt(d["pop"]))})
                 console.log("in total yMax " + yMax)
                 yMin = d3.min(data, function(d) { return (+betterParseInt(d[average]) / betterParseInt(d["pop"]))}) //yMax = (data[0][measure] / data[0]["pop"]);
             }
@@ -209,13 +218,33 @@ $(function() {
             //if (measure == 'total') {
                 
             //} else if (measure == 'gdp') {}
+           console.log("setting axes!!!!")
             var year = "";
             if (average = "2013") {
-               year = "2013" 
+               year = "2013"
+               console.log(year); 
             } else {
                 year = "2009-2013"
+                console.log(year);
             }
-            yAxisText.text('Number of Refugees in ' + year)
+            
+            console.log(measure);
+            console.log(measure == "total");
+            console.log();
+            console.log();
+            if (measure == "total") {
+                 console.log("updating y axis text to Total Number of Refugees in (" + year + ")");
+                 yAxisText.text('Total Number of Refugees in (' + year + ')')
+            } else if (measure == "gdp") {
+                console.log("updating y axis text to Refugees / GDP in (" + year + ")");
+                yAxisText.text('Refugees / GDP in (' + year + ')')
+            } else {
+                //pop
+                console.log("updating y axis text to Total Number of Refugees / Popultation in (" + year + ")");
+                yAxisText.text('Total Number of Refugees / Popultation in (' + year + ')')
+                
+            }
+           
             xAxisText.text('Country')
             
         }
@@ -232,8 +261,8 @@ $(function() {
                     //gdp things
                     console.log("countray A name " + a["name"] + " and a[average] " + a[average] + " a[gdp] " + a["gdp"]);
                     console.log("countray B name " + b["name"] + " and b[average] " + b[average] + " b[gdp] " + b["gdp"]);
-                    console.log("result of test " + ((betterParseInt(b[average]) / betterParseInt(b["gdp"])) - ((betterParseInt(a[average]) / betterParseInt(a["gdp"])))))
-                    return ((betterParseInt(b[average]) / betterParseInt(b["gdp"])) - ((betterParseInt(a[average]) / betterParseInt(a["gdp"]))))
+                    console.log("result of test " + (betterParseInt(b["gdp"]) / (betterParseInt(b[average]))) - ((betterParseInt(a["gdp"]) / betterParseInt(a[average]))));
+                    return betterParseInt(b["gdp"]) / ((betterParseInt(b[average])) - ((betterParseInt(a["gdp"]) / betterParseInt(a[average]))))
                 } else {
                     //pop things
                     console.log("population things " , (betterParseInt(b[average]) / betterParseInt(b["pop"])) - ((betterParseInt(a[average]) / betterParseInt(a["pop"]))));
@@ -260,6 +289,7 @@ $(function() {
             
             bars.enter().append('rect')
                 .attr('x', function(d) {
+                    console.log(height);
                     return xScale(d.code)
                 })
                 .attr('y', height)
@@ -283,42 +313,60 @@ $(function() {
                 })
                 .attr('y', function(d) {
                     if (measure == "total") {
+                        console.log(d);
+                        console.log(measure);
+                        console.log(height);
                         console.log("average " + average);
                         console.log("d[average] " + d[average]);
                         console.log("attempting to log " + yScale(betterParseInt(d[average])));
                         return yScale(betterParseInt(d[average]));
                     } else if (measure == "gdp") {
+                        console.log(d);
+                        console.log(measure);
+                        console.log(height);
                         console.log("average " + average);
                         console.log("d[average] " + d[average]);
-                        console.log("attepting to log " + yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"])));
-                        return yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"]));
+                        console.log("attepting to log " + yScale(betterParseInt(d["gdp"]) / betterParseInt(d[average])));
+                        return yScale(betterParseInt(d["gdp"]) / betterParseInt(d[average]));
                     } else {
                         // here
+                        console.log(d);
+                        console.log(measure);
+                        console.log(height);
                         console.log("average " + average);
-                        console.log("d[average] " + d[average]);
-                        console.log("attepting to log " + (yScale(d[average] / d["pop"])));
-                        return yScale(d[average] / d["pop"])
+                        console.log("d[average] " + betterParseInt(d[average]));
+                        console.log("attepting to log " + (yScale(betterParseInt(d[average]) / betterParseInt(d["pop"]))));
+                        return yScale(betterParseInt(d[average]) / betterParseInt(d["pop"]))
                     }
                 })
                 .attr('height', function(d) {
                     if (measure == "total") {
+                        console.log(d);
+                        console.log(measure);
+                        console.log(height);
                         console.log("average " + average);
-                        console.log("d[average] " + d[average]);
+                        console.log("d["+average+"] " + d[average]);
                         console.log("attepting to log " + (height - yScale(betterParseInt(d[average]))));
                         return height - yScale(betterParseInt(d[average]));
                     } else if (measure == "gdp") {
                         //gdp
+                        console.log(d);
+                        console.log(measure);
+                        console.log(height);
                         console.log("average " + average);
                         console.log("d[average] " + d[average]);
-                        console.log("attempting to log " + (height - yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"]))));
+                        console.log("attempting to log " + (height - yScale(betterParseInt(d["gdp"])/ betterParseInt(d[average]))));
                         return height - yScale(betterParseInt(d[average]) / betterParseInt(d["gdp"]));
                     } else {
                         //pop
                         // here
+                        console.log(d);
+                        console.log(measure);
+                        console.log(height);
                         console.log("average " + average);
-                        console.log("d[average] " + d[average]);
-                        console.log("attempting to log " + (height - yScale(d[average] / d["pop"])));
-                        return height - yScale(d[average] / d["pop"]);
+                        console.log("d[average] " + betterParseInt(d[average]));
+                        console.log("attempting to log " + (height - yScale(betterParseInt(d[average]) / betterParseInt(d["pop"]))));
+                        return height - yScale(betterParseInt(d[average]) / betterParseInt(d["pop"]));
                     }
                     //return height - yScale(d[average])
                 })
@@ -329,8 +377,7 @@ $(function() {
         }
 
         $("input").on('change', function() {
-            alert("MEASURE " + $("input:radio[name='options']:checked").val());
-            alert("AVERAGE " + $("input:radio[name='options_average']:checked").val());
+            console.log($("input:radio[name='options_average']:checked").val());
             measure = $("input:radio[name='options']:checked").val();
             average = $("input:radio[name='options_average']:checked").val();         
             filterData();

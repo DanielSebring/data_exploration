@@ -25,3 +25,15 @@ output:after {
   margin-left: -5px;
   margin-top: -1px;
 }
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+input[type=range] {
+    margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
