@@ -12,6 +12,7 @@ output {
   left: 0;
   margin-left: -1%;
 }
+
 output:after { 
   content: "";
   position: absolute;
@@ -33,7 +34,26 @@ output:after {
 }
 
 input[type=range] {
-    margin-left: auto;
+  margin-left: auto;
   margin-right: auto;
   text-align: center;
+}
+
+.tooltip {
+  color: white;
+  background: black;
+  padding: 5px;
+  font-size: 15px;
+}
+
+.legend {                                                   
+  font-size: 12px;                                         
+}     
+                                             
+rect {                                                    
+  stroke-width: 2;                                      
+}    
+
+body {
+  background-color: lightgrey;
 }
