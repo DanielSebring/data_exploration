@@ -24,7 +24,8 @@ The final piece of control is a rangle slider that allows the user to select the
 
 Link to the Live Visualisation: http://students.washington.edu/dseb/data_exploration/
 
-Thanks to: 
+Thanks to:
+ 
 1. Professor Freeman - for lots of the base code and layout, designed after https://github.com/INFO-474/m8-scales/blob/complete/exercise-3/js/main.js
 
 2. WebTutsDepot- they have a great handy little tutorial on a quick and dirty way to make a adjustable, readable, range slider
