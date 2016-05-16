@@ -30,6 +30,6 @@ Thanks to:
 
 2. WebTutsDepot- they have a great handy little tutorial on a quick and dirty way to make a adjustable, readable, range slider
 
-3. Tooltips inspired by Justin Palmer’s Block 6476579 ← 3885304
+3. Tooltips inspired by Justin Palmer’s Block 6476579 ← 3885304 http://bl.ocks.org/Caged/6476579
 
 4. Legend inspired by http://zeroviscosity.com/d3-js-step-by-step/step-3-adding-a-legend
